@@ -1,0 +1,117 @@
+<html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Réseau Informatique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+    .quiz-container {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 { color: #2c3e50; }
+    .question { font-size: 1.2em; margin-bottom: 20px; }
+    .answers button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      width: 80%;
+      border: none;
+      border-radius: 5px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .answers button:hover {
+      background: #2980b9;
+    }
+    #score {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Quiz Réseau Informatique</h1>
+    <div id="question-container">
+      <div class="question" id="question"></div>
+      <div class="answers" id="answers"></div>
+    </div>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Que signifie 'IP' dans une adresse IP ?",
+        answers: ["Internet Protocol", "Internal Path", "Input Port", "Intranet Provider"],
+        correct: 0
+      },
+      {
+        question: "Quel appareil connecte plusieurs réseaux entre eux ?",
+        answers: ["Switch", "Routeur", "Hub", "Modem"],
+        correct: 1
+      },
+      {
+        question: "Lequel est une adresse MAC valide ?",
+        answers: ["192.168.0.1", "00:1A:2B:3C:4D:5E", "HTTP://127.0.0.1", "255.255.255.0"],
+        correct: 1
+      },
+      {
+        question: "Que fait un pare-feu (firewall) ?",
+        answers: ["Stocke les données", "Augmente la vitesse", "Filtre le trafic réseau", "Attribue des adresses IP"],
+        correct: 2
+      },
+      {
+        question: "Quel protocole est utilisé pour envoyer des e-mails ?",
+        answers: ["HTTP", "SMTP", "FTP", "DNS"],
+        correct: 1
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+      q.answers.forEach((ans, idx) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.onclick = () => checkAnswer(idx);
+        answersDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      if (selected === questions[currentQuestion].correct) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("question-container").style.display = "none";
+        document.getElementById("score").textContent = `Ton score : score/{questions.length}`;
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
