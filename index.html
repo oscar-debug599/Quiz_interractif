@@ -38,8 +38,10 @@
       background: #2980b9;
     }
     #score {
-      margin-top: 20px;
+      margin-top: 30px;
       font-weight: bold;
+      font-size: 1.3em;
+      color: #27ae60;
     }
   </style>
 </head>
@@ -50,7 +52,7 @@
       <div class="question" id="question"></div>
       <div class="answers" id="answers"></div>
     </div>
-    <div id="score"></div>
+    <div id="score" style="display: none;"></div>
   </div>
 
   <script>
@@ -81,7 +83,6 @@
         correct: 1
       }
     ];
-
     let currentQuestion = 0;
     let score = 0;
 
@@ -107,7 +108,9 @@
         showQuestion();
       } else {
         document.getElementById("question-container").style.display = "none";
-        document.getElementById("score").textContent = `Ton score : score/{questions.length}`;
+        const scoreDiv = document.getElementById("score");
+        scoreDiv.style.display = "block";
+        scoreDiv.textContent = `✅ Ton score : score /{questions.length}`;
       }
     }
 
